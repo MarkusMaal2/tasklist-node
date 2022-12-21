@@ -34,6 +34,12 @@
                     <div class="s12 row">
                         <span class="card-title" id="taskTitle">Tasks</span>
                         <ul class="collection" id="taskList">
+                            <% tasksData.forEach((taskEl) => { %>
+                                <li class="collection-item">
+                                    <%= taskEl.task %>
+                                    <a href="#" class="secondary-content">X</a>
+                                </li>
+                            <% })%>
                         </ul>
                         <a href="#" id="deleteAll" class="btn">Delete all tasks</a>
                     </div>
