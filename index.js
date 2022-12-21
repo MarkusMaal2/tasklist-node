@@ -30,4 +30,33 @@ app.get("/", (req, res) => {
     })
 })
 
+app.get("/delete-task/:taskId", (req, res) => {
+    let deletedTaskId = parseInt(req.params.taskId)
+    fs.readFile('./tasks.json', 'utf-8', (err, jsonString) => {
+        if (err) {
+            console.log(`Error reading file: ${err}`)
+            return
+        }
+        try {
+            const tasks = JSON.parse(jsonString)
+            tasks.forEach((task, idx) => {
+                if (task.id === deletedTaskId) {
+                    tasks.splice(idx, 1)
+                }
+            })
+            jsonString = JSON.stringify(tasks, null, 2)
+            fs.writeFile("./tasks.json", jsonString, "utf-8", (err) => {
+                if (err) {
+                    console.log(`Error writing file: ${err}`)
+                } else {
+                    console.log(`Data saved to file`)
+                }
+            })
+            res.redirect("/")
+        } catch (err) {
+            console.log(`Error parsing file: ${err}`)
+        }
+    })
+})
+
 app.listen(port)
