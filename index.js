@@ -103,4 +103,17 @@ app.post("/add-task", (req, res) => {
     })
 })
 
+app.get("/delete-all", (req, res) => {
+    // save
+    jsonString = "[]"
+    fs.writeFile("./tasks.json", jsonString, "utf-8", (err) => {
+        if (err) {
+            console.log(`Error writing file: ${err}`)
+        } else {
+            console.log(`Data saved to file`)
+        }
+    })
+    res.redirect("/")
+})
+
 app.listen(port)
